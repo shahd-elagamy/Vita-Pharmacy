@@ -1,0 +1,81 @@
+{% extends 'main/home.html' %}
+
+{% block content %}
+<div class="container my-4">
+    <div class="card p-4 shadow-sm" style="max-width: 600px; margin: 0 auto; text-align: center;">
+        <h2 class="mb-4">Order Placed Successfully! 😄</h2>
+        <p class="mb-4">Thank you for your order. We will process it shortly.</p>
+        <div class="button-group">
+            <a href="{% url 'products:product_list' %}" class="btn btn-primary">Browse Other Products</a>
+            <a href="{% url 'main:home' %}" class="btn btn-secondary">Back to Home</a>
+        </div>
+    </div>
+</div>
+
+<style>
+    .container {
+        max-width: 100%;
+    }
+
+    .card {
+        background: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 2rem;
+        text-align: center;
+        margin: 0 auto; 
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); 
+    }
+
+    .card h2 {
+        color: #a72885;
+    }
+
+    .button-group {
+        display: flex;
+        justify-content: center; 
+        gap: 0.5rem; 
+        margin-top: 1rem; 
+    }
+
+    .btn-primary, .btn-secondary {
+        display: inline-block;
+        width: 200px;
+        text-align: center;
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+        border-radius: 5px;
+        text-decoration: none;
+    }
+
+    .btn-primary {
+        background-color: #7a2571; 
+        border: none;
+        color: #ffffff;
+    }
+
+    .btn-primary:hover {
+        background-color: #5e1a52;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        border: none;
+        color: #ffffff;
+    }
+
+    .btn-secondary:hover {
+        background-color: #5a6268;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+    }
+</style>
+
+<script>
+    // Display alert message on page load
+    window.onload = function() {
+        alert('Thank you for your order! Your request has been received and is being processed.');
+    };
+</script>
+
+{% endblock %}

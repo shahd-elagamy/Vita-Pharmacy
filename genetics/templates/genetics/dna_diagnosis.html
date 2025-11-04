@@ -1,0 +1,140 @@
+{% extends 'main/home.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DNA Diagnosis</title>
+    <style>
+        .loader {
+  width: 0;
+  height: 4.8px;
+  display: inline-block;
+  position: relative;
+  background: #34729b;
+  box-shadow: 0 0 10px rgba(200, 202, 194, 0.5);
+  box-sizing: border-box;
+  animation: animFw 8s linear infinite;
+}
+  .loader::after,
+  .loader::before {
+    content: '';
+    width: 10px;
+    height: 1px;
+    background: #2baebd;
+    position: absolute;
+    top: 9px;
+    right: -2px;
+    opacity: 0;
+    transform: rotate(-45deg) translateX(0px);
+    box-sizing: border-box;
+    animation: coli1 0.3s linear infinite;
+  }
+  .loader::before {
+    top: -4px;
+    transform: rotate(45deg);
+    animation: coli2 0.3s linear infinite;
+  }
+
+@keyframes animFw {
+    0% {
+  width: 0;
+}
+    100% {
+  width: 100%;
+}
+  }
+
+@keyframes coli1 {
+    0% {
+  transform: rotate(-45deg) translateX(0px);
+  opacity: 0.7;
+}
+    100% {
+  transform: rotate(-45deg) translateX(-45px);
+  opacity: 0;
+}
+  }
+
+@keyframes coli2 {
+    0% {
+  transform: rotate(45deg) translateX(0px);
+  opacity: 1;
+}
+    100% {
+  transform: rotate(45deg) translateX(-45px);
+  opacity: 0.7;
+}
+  }
+  
+    </style>
+</head>
+<body>
+    <div style="display: flex; justify-content: center; align-items: flex-start; width: 100%; margin: 20px;">
+        <div style="flex: 1; max-width: 500px; margin-right: 20px; background-color: #ffffff; padding: 20px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);">
+            <h1 style="color: #3498db; font-size: 24px; margin-bottom: 20px; text-align: center;">Upload Your DNA Data</h1>
+            <form id="dnaForm" method="POST" enctype="multipart/form-data" style="margin-bottom: 30px;">
+                {% csrf_token %}
+                <input type="file" name="dna_file" accept=".csv,.txt" required style="margin-bottom: 20px; padding: 10px; width: 100%; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box;">
+                <button type="submit" style="padding: 10px 20px; font-size: 16px; cursor: pointer; background-color: #7734db; color: white; border: none; border-radius: 5px; transition: background-color 0.3s ease; width: 100%;">
+                    Submit
+                </button>
+            </form>
+
+            <!-- Loading Spinner -->
+            <div class="loader" id="loading" style="display: none; font-size: 20px; font-weight: bold; text-align: center; margin-top: 20px;">
+            </div>
+
+            <!-- Displaying the Results -->
+            {% if result %}
+                <div style="margin-top: 30px; text-align: left; padding: 20px; border: 1px solid #ddd; border-radius: 10px; background-color: #f9f9f9;">
+                    <h2 style="margin-bottom: 15px; font-size: 20px; text-align: center; color: #e74c3c;">Results:</h2>
+                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                        {% for item in result %}
+                            <div style="padding: 10px; border: 1px solid #3498db; border-radius: 5px; background-color: #eafafc;">
+                                <p style="font-size: 18px; font-weight: bold; color: #2c3e50;">{{ item }}</p>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                {% if drugs %}
+                    <h3 style="margin-top: 20px; font-size: 18px; color: #34495e; text-align: center;">Recommended Drugs:</h3>
+                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                        {% for gene, drug_list in drugs.items %}
+                            <div style="padding: 10px; border: 1px solid #3498db; border-radius: 5px; background-color: #eafafc;">
+                                <strong style="color: #e74c3c;">{{ gene }}:</strong> 
+                                <span style="color: #2c3e50;">{{ drug_list|join:", " }}</span>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endif %}
+        </div>
+
+        <div>
+            <img src="https://i.pinimg.com/originals/a3/35/1e/a3351e85adaacfb35197e6199f7d20e8.gif" alt="Genetic DNA" style="width: 500px; height: auto; border-radius: 5px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('dnaForm');
+        const loading = document.getElementById('loading');
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            // Show the loading spinner
+            loading.style.display = 'flex';
+
+            // Submit the form after a delay of 5 seconds
+            setTimeout(() => {
+                form.submit(); // Submit the form
+            }, 5000); // 5 seconds delay
+        });
+    </script>
+</body>
+</html>
+{% endblock %}

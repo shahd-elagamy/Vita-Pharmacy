@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vita Pharmacy</title>
+    {% load static %}
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
+    
+    <style>
+        .btn {
+            padding: .45rem 1.5rem .35rem;
+        }
+
+        .gradient-custom {
+            /* fallback for old browsers */
+            background: #c471f5;
+            /* Chrome 10-25, Safari 5.1-6 */
+            background: -webkit-linear-gradient(to right, rgb(139, 113, 245), rgb(113, 165, 250));
+            /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+            background: linear-gradient(to right, rgb(128, 113, 245), rgb(113, 232, 250))
+        }
+
+        .navbar {
+            background-color: transparent; /* Set to transparent to use gradient background */
+        }
+
+        .navbar-brand {
+            color: #ffffff; /* White color for the brand */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Shadow effect */
+            transition: color 0.3s ease; /* Transition for hover effect */
+        }
+
+        .navbar-brand:hover {
+            color: #f4d58d; /* Change color on hover */
+        }
+
+        .bg-dark {
+            background: linear-gradient(to bottom, #0c325b, #245181, #6c9dcb); /* Blue gradient */
+            height: 300px;
+            padding: 50px 0;
+            position: relative;
+        }
+
+        .text-center {
+            position: relative;
+            z-index: 2;
+        }
+
+        .header {
+            text-transform: uppercase;
+            font-size: 50px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+            color: #f4d58d; /* Light yellow for contrast */
+        }
+
+        .lead {
+            font-size: 20px;
+            font-weight: normal;
+            color: #f4d58d; /* Light yellow for contrast */
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark gradient-custom">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'main:home' %}" style="text-decoration: none;">Vita Pharmacy</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'main:home' %}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'main:about' %}">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'products:product_list' %}">All Products</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Categories</a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="{% url 'products:all_categories' %}">All Categories</a></li>
+                            {% for category in categories %}
+                            <li><a class="dropdown-item" href="{% url 'products:category_products' category.id %}">{{ category.name }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+    
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'users:profile' %}">Profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'users:custom_logout' %}">Log out</a>
+                        </li>
+                        <li><a class="nav-link" href="{% url 'genetics:dna_diagnosis' %}">DNA Diagnosis</a></li>
+                        <li><a class="nav-link" href="{% url 'products:favorites_list' %}">View Favorites</a>
+                        </li>
+                       
+                    
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'users:login' %}">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'users:signup' %}">Signup</a>
+                        </li>
+                        {% endif %}    
+                </ul>
+                <a href="{% url 'orders:view_cart' %}" class="btn btn-outline-dark">
+                    <i class="bi bi-cart-fill me-1"></i>
+                    Cart
+                </a>
+            </div>
+        </div>
+    </nav>
+    <!-- Navbar -->
+
+    <header class="bg-dark py-5">
+        <div class="container px-4 px-lg-5 my-5">
+            <div class="text-center">
+                <h1 class="header">Your Health, Our Commitment</h1>
+                <p class="lead">Quality Healthcare Solutions at Your Fingertips</p>
+            </div>
+        </div>
+    </header>
+</body>
+</html>

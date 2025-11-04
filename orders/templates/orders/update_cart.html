@@ -1,0 +1,76 @@
+{% extends 'main/home.html' %}
+
+{% block content %}
+<div class="container my-4">
+    <h1 class="text-center mb-4">Update Cart</h1>
+    
+    <form method="post" action="{% url 'orders:update_cart' cart_item.id %}">
+        {% csrf_token %}
+        <div class="card p-4 shadow-sm" style="max-width: 500px; margin: 0 auto;">
+            <h3 class="mb-4 text-center">Update Quantity for {{ cart_item.product.name }}</h3>
+            <div class="mb-3">
+                <label for="quantity" class="form-label">Quantity</label>
+                <input type="number" id="quantity" name="quantity" class="form-control" min="1" value="{{ cart_item.quantity }}" required>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary btn-lg">Update Quantity</button>
+                <a href="{% url 'orders:view_cart' %}" class="btn btn-secondary btn-lg ms-3">Cancel</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<style>
+    .card {
+        background-color: #f8f9fa;
+        border-radius: 12px;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        border: 1px solid #dee2e6;
+    }
+
+    .form-label {
+        font-weight: bold;
+        color: #495057;
+    }
+
+    .btn-primary {
+        background-color: #cc57d7;
+        border: none;
+        color: #ffffff;
+        font-size: 1.1rem;
+        padding: 10px 20px;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+    }
+
+    .btn-primary:hover {
+        background-color: #9758c1;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        border: none;
+        color: #ffffff;
+        font-size: 1.1rem;
+        padding: 10px 20px;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+    }
+
+    .btn-secondary:hover {
+        background-color: #5a6268;
+    }
+
+    @media (max-width: 576px) {
+        .card {
+            padding: 15px;
+        }
+
+        .btn-lg {
+            padding: 8px 16px;
+            font-size: 1rem;
+        }
+    }
+</style>
+{% endblock %}

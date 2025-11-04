@@ -1,0 +1,145 @@
+<head>
+    <style>
+        .categories-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .category-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            list-style-type: none;
+            padding: 0; /* Remove default padding from the list */
+        }
+
+        .category-item {
+            background-color: rgba(255, 255, 255, 0.9); /* Slight transparency for a softer look */
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            margin: 10px;
+            padding: 15px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: calc(25% - 20px);
+            overflow: hidden;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .category-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+        }
+
+        .category-item img {
+            object-fit: cover;
+            height: 200px;
+            width: 100%;
+            border-bottom: 1px solid #e0e0e0;
+            margin-bottom: 10px;
+            border-radius: 8px; /* Rounded corners for images */
+        }
+
+        .category-item h2 {
+            font-size: 1.5em; /* Slightly larger heading */
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .category-item .price {
+            font-weight: bold;
+            color: #007bff;
+            font-size: 1.2em;
+            margin: 5px 0; /* Space above and below */
+        }
+
+        .category-item .sale-price {
+            font-weight: bold;
+            color: #ff0000;
+            font-size: 1.2em;
+            text-decoration: line-through; 
+            margin-right: 10px;
+        }
+
+        .category-item a {
+            text-decoration: none; 
+            color: inherit; 
+        }
+
+        .category-item .view-options-btn {
+            background-color: #007bff;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            text-align: center;
+            text-decoration: none;
+            transition: background-color 0.3s ease; /* Transition for hover effect */
+        }
+
+        .category-item .view-options-btn:hover {
+            background-color: #0056b3;
+        }
+
+        h1.header2 {
+            color: #444;
+            font-size: 2.5em; /* Increased size for header */
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-bottom: 2px solid #8a2be2; /* Subtle bottom border */
+            padding-bottom: 10px; /* Space below header */
+        }
+
+        @media (max-width: 768px) {
+            .category-item {
+                width: calc(50% - 20px); 
+            }
+        }
+
+        @media (max-width: 480px) {
+            .category-item {
+                width: 100%; 
+            }
+        }
+    </style>
+</head>
+
+{% extends 'main/home.html' %}
+
+{% block content %}
+
+    <div class="categories-container">
+        <h1 class="header2">{{ category.name }}</h1>
+        <ul class="category-list">
+            {% for product in products %}
+                <li class="category-item">
+                    <a href="{% url 'products:product_detail' product.id %}">
+                        <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                        <h2>{{ product.name }}</h2>
+
+                        {% if product.is_sale %}
+                            <p>
+                                <span class="sale-price">{{ product.price }} EGP</span>
+                                <span class="price">{{ product.sale_price }} EGP</span>
+                            </p>
+                        {% else %}
+                            <p class="price">{{ product.price }} EGP</p>
+                        {% endif %}
+
+                        <a href="{% url 'products:product_detail' product.id %}" class="view-options-btn">View Options</a>
+                    </a>
+                </li>
+            {% empty %}
+                <p>No medications available in this category.</p>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

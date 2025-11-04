@@ -1,0 +1,754 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="Your trusted pharmacy for health and wellness products." />
+    <meta name="author" content="Vita Pharmacy" />
+    
+    <!-- Set the favicon -->
+    <link rel="icon" type="image/x-icon" href="{% static 'C:\\Users\\Administrator\\OneDrive\\Desktop\\GeneCare\\myproject\\static\\assets\\favicon.ico' %}" />
+    
+    <title>Vita Pharmacy</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        /* Footer Styles */
+        .bg-footer {
+            background-color: #343a40;
+            color: #ffffff;
+        }
+        .bg-footer p, .bg-footer a {
+            color: #ffffff;
+            text-decoration: none;
+        }
+        .bg-footer a:hover {
+            color: #17a2b8;
+        }
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+        .social-icons a {
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+        .social-icons a:hover {
+            color: #17a2b8; /* Custom color for hover effect */
+        }
+        .contact-info {
+            text-align: center;
+            margin-top: 1rem;
+        }
+        .contact-info a {
+            color: #ffffff;
+            font-weight: 600;
+        }
+        .contact-info a:hover {
+            color: #17a2b8;
+        }
+        .divider {
+            margin: 0 0.5rem;
+            color: #ffffff;
+        }
+    
+        
+     
+
+    /* Image styling */
+    .card-img-top {
+        width: 100%;
+        height: 200px; /* Set a fixed height for the image */
+        object-fit: cover;
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+        transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    }
+
+    /* Card body styling */
+    .card-body {
+        padding: 1rem;
+        text-align: center;
+       
+    }
+
+    /* Product name styling */
+    .card-body h5 {
+        color: #0d6efd; /* A blue color that signifies health/trust */
+        font-weight: bold;
+    }
+
+    /* Product price styling */
+    .card-body p {
+        color: #28a745; /* A soft green for pricing, representing freshness/health */
+    }
+
+    /* Sale badge */
+    .badge {
+        background-color: #ffcc00; /* Soft yellow for sale indicator */
+        color: #000;
+    }
+
+    /* Card footer */
+    .card-footer {
+        padding: 0.75rem;
+        background-color: #f8f9fa; /* Light background */
+        border-top: 1px solid #d1e7dd;
+        transition: background-color 0.3s ease-in-out;
+    }
+
+    /* Button styling */
+    .btn-outline-dark {
+        border-color: #28a745; /* Soft green */
+        color: #28a745;
+        transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+    }
+
+    .btn-outline-dark:hover {
+        background-color: #28a745;
+        color: #fff;
+        border-color: #28a745;
+    }
+
+    /* Hover effects */
+    .card:hover {
+        box-shadow: 0 12px 24px rgba(0, 128, 0, 0.2); /* Green shadow on hover */
+    }
+
+    .card:hover .card-img-top {
+        transform: scale(1.05); /* Slight zoom on hover */
+        opacity: 0.9;
+    }
+
+    /* Media queries to control card columns */
+    @media (min-width: 576px) {
+        .row-cols-2 .col {
+            flex: 0 0 auto;
+            width: 50%;
+        }
+    }
+
+    @media (min-width: 768px) {
+        .row-cols-md-3 .col {
+            flex: 0 0 auto;
+            width: 33.3333%;
+        }
+    }
+
+    @media (min-width: 1200px) {
+        .row-cols-xl-4 .col {
+            flex: 0 0 auto;
+            width: 25%;
+        }
+    }
+
+    .swiper {
+      width: 100%;
+      padding-top: 50px;
+      padding-bottom: 50px;
+    }
+
+    .swiper-slide {
+      background-position: center;
+      background-size: cover;
+      width: 300px;
+      height: 300px;
+    }
+
+    .swiper-slide img {
+      display: block;
+      width: 100%;
+    }
+    
+
+
+    .banner-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Center the cards */
+    gap: 20px; /* Space between cards */
+}
+.search-container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+#search-input {
+    width: 80%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border 0.3s;
+}
+
+#search-input:focus {
+    border-color: #007bff; /* Change this to your primary color */
+    outline: none;
+}
+
+.btn-primary {
+    padding: 10px 15px;
+    margin-left: 10px;
+    border-radius: 5px;
+}
+.suggestions {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 5px;
+}
+
+.suggestions li {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 8px;
+    cursor: pointer;
+}
+
+.suggestions li:hover {
+    background-color: #e2e2e2;
+}
+
+
+    </style>
+
+</head>
+<body>
+    {% include 'partials/navbar.html' %}
+
+    {% block content %}
+    <div class="search-container text-center my-4">
+        <form id="search-form" onsubmit="return submitSearch();">
+            <input type="text" id="search-input" name="q" placeholder="Search for medicines..." required>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+    </div>
+    
+    
+    <script>
+        async function submitSearch() {
+            const query = document.getElementById('search-input').value.trim();
+            if (query) {
+                try {
+                    const response = await fetch(`/api/search_product/?q=${encodeURIComponent(query)}`);
+                    
+                    if (response.ok) {
+                        const product = await response.json();
+                        // Redirect to the product detail page
+                        window.location.href = `/products/products/product/${product.id}/`;
+                    } else {
+                        alert('No products found');
+                    }
+                } catch (error) {
+                    console.error('Error fetching products:', error);
+                }
+                return false; // Prevent page reload
+            }
+            return true; // If there's an error
+        }
+    </script>
+    
+      
+    
+    
+
+<!-- Swiper -->
+<div class="swiper mySwiper">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide">
+        <img src="static/img1.jpg" />
+      </div>
+      <div class="swiper-slide">
+        <img src="static/img2.jpg" />
+      </div>
+      <div class="swiper-slide">
+        <img src="static/img3.jpg" />
+      </div>
+      <div class="swiper-slide">
+        <img src="static/img4.jpg" />
+      </div>
+      <div class="swiper-slide">
+        <img src="static/img5.jpg" />
+      </div>
+      <div class="swiper-slide">
+        <img src="static/img6.jpg" />
+      </div>
+      <div class="swiper-slide">
+        <img src="static/img7.jpg" />
+      </div>
+      <div class="swiper-slide">
+        <img src="static/img8.jpg" />
+      </div>
+      <div class="swiper-slide">
+        <img src="static/img9.png" />
+      </div>
+    </div>
+    <div class="swiper-pagination"></div>
+  </div>
+
+  <!-- Swiper JS -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+
+    <!-- Messages -->
+    <div class="container mt-3">
+        {% if messages %}
+            <div class="alert alert-dismissible fade show" role="alert">
+                <ul class="list-unstyled">
+                    {% for message in messages %}
+                        <li class="alert alert-{{ message.tags }} mt-2">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endif %}
+    </div>
+
+
+    <section class="py-5">
+        <div class="container text-center">
+            <h1 class="">Shop By Category</h1>
+            <div class="banner-container d-flex justify-content-center flex-wrap">
+                {% for category in categories %}
+                    <div class="category-card m-2">
+                        <a href="{% url 'products:category_products' category.id %}" class="text-decoration-none">
+                            <div class="card bg-dark text-white rounded-circle" style="width: 150px; height: 150px;">
+                                <div class="card-body d-flex justify-content-center align-items-center">
+                                    
+                                    <h5 class="card-title text-center" style="color: #FFD700;">{{ category.name }}</h5> <!-- تغيير لون الخط هنا -->
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                {% empty %}
+                    <div class="category-card">
+                        <p>No categories available.</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    
+    <style>
+        .category-card {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 12px; /* Space between cards */
+        }
+        
+        .card {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column; /* Center items vertically */
+            transition: transform 0.2s;
+            width: auto; /* Let content dictate width */
+            height: auto; /* Let content dictate height */
+            padding: 20px; /* Padding for space around content */
+            border-radius: 50%; /* Ensure circular shape */
+        }
+        
+        .card:hover {
+            transform: scale(1.2); /* Scale effect on hover */
+        }
+        </style>
+    
+    
+
+    
+
+    
+    <style>
+        .banner {
+            background-color: #80a6cd; /* Dark background for the banner */
+            color: #ffffff; /* White text color */
+            padding: 60px 0; /* Increased padding for a banner feel */
+            position: relative; /* Position for any additional elements like overlay */
+        }
+        
+        .testimonial-card {
+            background-color: rgba(255, 255, 255, 0.9); /* Light background for cards with transparency */
+            transition: transform 0.2s;
+            margin: 15px; /* Space between cards */
+        }
+        
+        .testimonial-card:hover {
+            transform: scale(1.05); /* Slight scaling on hover */
+        }
+        
+        .blockquote {
+            color: #343a40; /* Dark text for better readability */
+        }
+
+        .img-fluid {
+            width: 80px; 
+            height: 80px; /* Ensure consistent image sizes */
+        }
+    </style>
+</head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        /* Global Styles */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        body { min-height: 100vh; background-color: #EBEBEB; font-family: 'Open Sans', sans-serif; }
+        body > * + *  { margin-top: 0; }
+        h2 { text-align: center; font-weight: 800; color: rgb(12, 12, 12); text-transform: uppercase; margin-bottom: 2rem; }
+
+        /* Blockquote Card Styles */
+        blockquote.q-card-color-1 {
+            --accent-color: rgb(32, 32, 54);
+            --bg-color: rgb(30, 145, 254);
+            --dot-color: rgb(255, 255, 255 / .35);
+            --text-color: rgb(243, 243, 243);
+            --text-color-author: rgb(243, 243, 243);
+        }
+
+        blockquote.q-card {
+            --padding: 1rem;
+            padding: var(--padding);
+            color: var(--text-color, black);
+            font-weight: 600;
+            background-color: var(--bg-color, white);
+            display: grid;
+            gap: 1rem;
+            background-image: radial-gradient(circle, var(--dot-color, rgb(0, 0, 0 / .125)) calc(25% - 1px), transparent 25%);
+            background-size: 0.5rem 0.5rem;
+            border-radius: 0.25rem;
+            box-shadow: 0.5rem 0.5rem 2rem rgb(0 0 0 / .5);
+        }
+        
+        blockquote.q-card::before {
+            --qHeight: 4rem;
+            content: "";
+            margin-left: calc(var(--padding) * -1);
+            margin-top: calc(var(--padding) * -1);
+            height: var(--qHeight);
+            width: calc(var(--qHeight) * 1.1);
+            background-image:
+                radial-gradient(circle at bottom right, transparent calc(var(--qHeight) / 4 - 1px), var(--accent-color, black) calc(var(--qHeight) / 4) calc(var(--qHeight) / 2), transparent calc(var(--qHeight) / 2 + 1px)),
+                linear-gradient(var(--accent-color, black), var(--accent-color, black));
+            background-size: calc(var(--qHeight) / 2) calc(var(--qHeight) / 2);
+            background-position: top left, bottom left;
+            background-repeat: space no-repeat;
+        }
+
+        blockquote.q-card > .author {
+            color: var(--text-color-author, white);
+            background-color: var(--accent-color, black);
+            justify-self: end;
+            font-size: 0.75em;  
+            padding: 0.5em 1em;
+            border-radius: 0.25rem;
+        }
+        
+        blockquote.q-card > .author::before {
+            content: "- ";
+        }
+
+        /* Testimonial Section Styles */
+        .banner {
+            background-color: #acc9e6; /* Dark background for the banner */
+            color: #ffffff; /* White text color */
+            padding: 60px 0; /* Increased padding for a banner feel */
+        }
+
+        .testimonial-card {
+            background-color: transparent; /* Transparent background for cards */
+            transition: transform 0.2s;
+            margin: 15px; /* Space between cards */
+        }
+
+        .img-fluid {
+            width: 80px; 
+            height: 80px; /* Ensure consistent image sizes */
+        }
+    </style>
+</head>
+
+    <section class="py-5 banner">
+        <div class="container">
+            <h2>What Our Customers Say</h2>
+            <div class="row text-center">
+                <div class="col-md-4">
+                    <div class="testimonial-card">
+                        <blockquote class="q-card q-card-color-1">
+                            
+                            <p class="mb-0">“Vita Pharmacy has the best service and products!”</p>
+                            <footer class="author">Jane Doe, <cite title="Source Title">Happy Customer</cite></footer>
+                        </blockquote>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="testimonial-card">
+                        <blockquote class="q-card q-card-color-2">
+                            
+                            <p class="mb-0">“I love the variety of products available!”</p>
+                            <footer class="author">John Smith, <cite title="Source Title">Satisfied Client</cite></footer>
+                        </blockquote>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="testimonial-card">
+                        <blockquote class="q-card q-card-color-3">
+                            
+                            <p class="mb-0">“Quick delivery and friendly staff.”</p>
+                            <footer class="author">Sarah Lee, <cite title="Source Title">Regular Customer</cite></footer>
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+<!-- Health Tips Section -->
+<section class="py-5" style="background: linear-gradient(135deg, #7c4dac, #0a97d9); font-family: 'Roboto', sans-serif; margin-top:50px;">
+    <div class="container text-center">
+        <h2 style="margin-bottom: 3rem; color: #ffffff; font-weight: 700; font-size: 2.5rem; letter-spacing: 0.05rem;">
+            Latest Health Tips
+        </h2>
+        <div class="row justify-content-center">
+
+            <!-- Tip 1 -->
+            <a href="https://www.medicinenet.com/what_are_10_tips_for_a_healthy_lifestyle/article.htm" 
+               style="text-decoration: none; color: inherit;" class="col-md-4" 
+               style="margin-bottom: 2rem; padding: 1.5rem; display: block; background-color: #ffffff; 
+               border-radius: 10px; box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease, 
+               box-shadow 0.3s ease;">
+                <img src="static/healthylife.png" alt="Healthy Lifestyle" 
+                     style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; 
+                     transition: transform 0.3s ease, box-shadow 0.3s ease; margin-bottom: 1.5rem; 
+                     box-shadow: 0 10px 20px rgba(0, 123, 255, 0.2);">
+                <h5 style="font-weight: 1000; color: #ffffff; font-size: 1.25rem; margin-top: 1rem; letter-spacing: 0.03rem;">
+                    5 Tips for a Healthy Lifestyle
+                </h5>
+                <p style="font-weight:1000; font-size: 2rem; color: #432c50; margin-top: 0.5rem; line-height: 1.6;">
+                    Discover key tips to maintain a balanced, healthy lifestyle.
+                </p>
+            </a>
+
+            <!-- Tip 2 -->
+            <a href="https://www.fda.gov/food/nutrition-facts-label/how-understand-and-use-nutrition-facts-label" 
+               style="text-decoration: none; color: inherit;" class="col-md-4" 
+               style="margin-bottom: 2rem; padding: 1.5rem; display: block; background-color: #ffffff; 
+               border-radius: 10px; box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease, 
+               box-shadow 0.3s ease;">
+                <img src="static/2.jpeg" alt="Nutrition Labels" 
+                     style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; 
+                     transition: transform 0.3s ease, box-shadow 0.3s ease; margin-bottom: 1.5rem; 
+                     box-shadow: 0 10px 20px rgba(0, 123, 255, 0.2);">
+                <h5 style="font-weight: 1000; color: #ffffff; font-size: 1.25rem; margin-top: 1rem; letter-spacing: 0.03rem;">
+                    Understanding Nutrition Labels
+                </h5>
+                <p style="font-weight:1000;font-size: 2rem; color: #432c50; margin-top: 0.5rem; line-height: 1.6;">
+                    Learn how to read and interpret nutrition facts on food labels.
+                </p>
+            </a>
+
+            <!-- Tip 3 -->
+            <a href="https://www.mayoclinic.org/healthy-lifestyle/fitness/in-depth/exercise/art-20048389" 
+               style="text-decoration: none; color: inherit;" class="col-md-4" 
+               style="margin-bottom: 2rem; padding: 1.5rem; display: block; background-color: #ffffff; 
+               border-radius: 10px; box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease, 
+               box-shadow 0.3s ease;">
+                <img src="static/sport.jpg" alt="Regular Exercise" 
+                     style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; 
+                     transition: transform 0.3s ease, box-shadow 0.3s ease; margin-bottom: 1.5rem; 
+                     box-shadow: 0 10px 20px rgba(0, 123, 255, 0.2);">
+                <h5 style="font-weight:1000;font-weight: 1000; color: #ffffff; font-size: 1.25rem; margin-top: 1rem; letter-spacing: 0.03rem;">
+                    Benefits of Regular Exercise
+                </h5>
+                <p style="font-weight:1000;font-size: 2rem; color: #432c50; margin-top: 0.5rem; line-height: 1.6;">
+                    Discover the various health benefits of exercising regularly.
+                </p>
+            </a>
+
+        </div>
+    </div>
+</section>
+
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        // Hover effects for lifting and scaling
+        document.querySelectorAll('.col-md-4').forEach(item => {
+            item.addEventListener('mouseover', () => {
+                item.style.transform = 'translateY(-10px)';
+            });
+            item.addEventListener('mouseout', () => {
+                item.style.transform = 'translateY(0)';
+            });
+        });
+
+        document.querySelectorAll('img').forEach(img => {
+            img.addEventListener('mouseover', () => {
+                img.style.transform = 'scale(1.1)';
+                img.style.boxShadow = '0 8px 15px rgba(0, 0, 0, 0.2)';
+            });
+            img.addEventListener('mouseout', () => {
+                img.style.transform = 'scale(1)';
+                img.style.boxShadow = 'none';
+            });
+        });
+    </script>
+
+    
+
+    
+<!-- Most Recent Medicine Section Heading -->
+<section class="py-5" style="padding-bottom: 0;">
+    <div class="container text-center">
+        <h2 style="color: #007bff; font-weight: 700; font-size: 2.5rem; margin-bottom: 0; letter-spacing: 0.05rem;">
+            Most Recent Medicine
+        </h2>
+    </div>
+</section>
+
+<!-- Products Section -->
+<section class="py-5" style="padding-top: 0;">
+    <div class="container px-4 px-lg-5 mt-5">
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            {% for product in recent_products %}
+                <div class="col mb-5">
+                    <div class="card h-100" style="background-color: #f0f8ff; border: 1px solid #007bff; border-radius: 10px; box-shadow: 0 5px 10px rgba(0, 123, 255, 0.1);">
+                        <!-- Sale badge -->
+                        {% if product.is_sale %}
+                            <div class="badge bg-light text-black position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
+                        {% endif %}
+                        <!-- Product image -->
+                        <img class="card-img-top" src="{{ product.image.url }}" alt="{{ product.name }}" style="border-bottom: 2px solid #007bff;" />
+                        <!-- Product details -->
+                        <div class="card-body p-4">
+                            <div class="text-center">
+                                <!-- Product name -->
+                                <h5 class="fw-bolder" style="color: #007bff;">{{ product.name }}</h5>
+                                <div class="d-flex justify-content-center small text-warning mb-2">
+                                    {% if product.is_sale %}
+                                        <div class="bi-star-fill"></div>
+                                        &nbsp;&nbsp;Discounted!&nbsp;&nbsp;
+                                        <div class="bi-star-fill"></div>
+                                    {% endif %}
+                                </div>
+                                <!-- Product price -->
+                                {% if product.is_sale %}
+                                    <strike><strong>Price: {{ product.price }}</strong></strike>
+                                    <br />
+                                    <strong style="color: #007bff;">Sale Price: {{ product.sale_price }}</strong>
+                                {% else %}
+                                    <p class="fw-bolder" style="color: #007bff;"><strong>Price: </strong>{{ product.price }}</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <!-- Product actions -->
+                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <div class="text-center">
+                                <a class="btn btn-outline-dark mt-auto" href="{% url 'products:product_detail' product.id %}">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+
+    {% endblock %}
+    
+    {% load static %}
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
+    
+    <style>
+        /* body{background-color: #cbdfbd; } */
+        /* Add this style for footer background */
+        .bg-footer {
+            background-color: #866aec; /* Same color as the navbar */
+        }
+    </style>
+    
+     <!-- Footer Section -->
+     <footer class="py-5 bg-footer">
+        <div class="container">
+            <div class="footer-content">
+                <p class="m-0 text-center">&copy; 2024 Vita Pharmacy. All rights reserved.</p>
+
+                <div class="social-icons">
+                    <a href="https://www.facebook.com/vitapharmacy" target="_blank" class="text-white"><i class="fab fa-facebook"></i></a>
+                    <a href="https://twitter.com/vitapharmacy" target="_blank" class="text-white"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.instagram.com/vitapharmacy" target="_blank" class="text-white"><i class="fab fa-instagram"></i></a>
+                </div>
+
+                <div class="contact-info">
+                    
+                    <p>Email: <a href="mailto:info@vitapharmacy.com">info@vitapharmacy.com</a>
+                    <span class="divider">|</span>
+                    Phone: <a href="tel:+1234567890">+1 (234) 567-890</a>
+                    <span class="divider">|</span>
+                    Address: 123 Health St, Wellness City, CA 12345</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+    
+    <!-- Bootstrap core JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+ <!-- Initialize Swiper -->
+<script>
+    const totalSlides = 9; // Total number of slides
+    const middleIndex = Math.floor(totalSlides / 2); // Calculate the middle index
+
+    var swiper = new Swiper(".mySwiper", {
+        effect: "coverflow",
+        grabCursor: true,
+        centeredSlides: true,
+        slidesPerView: "auto",
+        coverflowEffect: {
+            rotate: 50,
+            stretch: 0,
+            depth: 100,
+            modifier: 1,
+            slideShadows: true,
+        },
+        pagination: {
+            el: ".swiper-pagination",
+        },
+        initialSlide: middleIndex, // Set initial slide to the middle one
+    });
+</script>
+
+    
+    <script src="{% static 'js/scripts.js' %}"></script>
+</body>
+</html>

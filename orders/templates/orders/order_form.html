@@ -1,0 +1,111 @@
+{% extends 'main/home.html' %}
+
+{% block content %}
+<div class="order-form-container">
+    <h2 class="text-center">Order Form for {{ product.name }}</h2>
+    <form method="post" action="{% url 'orders:submit_order' %}">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form.non_field_errors }}
+            {% for field in form %}
+                <div class="form-field">
+                    <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                    {{ field.errors }}
+                    {{ field }}
+                </div>
+            {% endfor %}
+        </div>
+        <input type="hidden" name="product_id" value="{{ product.id }}">
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary">Submit Order</button>
+        </div>
+    </form>
+</div>
+
+<style>
+    /* General Container Styling */
+    .order-form-container {
+        width: 70%;
+        margin: 50px auto;
+        padding: 30px;
+        background: #ffffff; /* Change to white for contrast */
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        border-radius: 12px;
+        border: 1px solid #e1e1e1;
+    }
+
+    /* Heading Styling */
+    .order-form-container h2 {
+        color: #7a2571; /* Header color */
+        margin-bottom: 25px;
+        font-size: 2rem;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    /* Form Group Styling */
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    /* Form Field Styling */
+    .form-field {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    /* Label Styling */
+    .form-label {
+        font-weight: bold;
+        color: #343a40; /* Darker text for labels */
+        font-size: 1.1rem;
+    }
+
+    /* Input and Select Field Styling */
+    .order-form-container form input,
+    .order-form-container form select,
+    .order-form-container form textarea {
+        border: 1px solid #ced4da; /* Lighter border color */
+        border-radius: 8px;
+        padding: 12px; /* Increased padding for better usability */
+        font-size: 1rem;
+        width: 100%;
+        transition: border-color 0.3s ease; /* Smooth transition */
+    }
+
+    /* Focused Field Styling */
+    .order-form-container form input:focus,
+    .order-form-container form select:focus,
+    .order-form-container form textarea:focus {
+        border-color: #7a2571; /* Primary color on focus */
+        outline: none;
+    }
+
+    /* Button Styling */
+    .btn-primary {
+        background-color: #7a2571; /* Primary button color */
+        border: none;
+        color: #ffffff;
+        padding: 12px 24px;
+        font-size: 1rem;
+        font-weight: bold;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease; /* Added transform for button */
+    }
+
+    /* Button Hover Styling */
+    .btn-primary:hover {
+        background-color: #5a1b51; /* Darker shade on hover */
+        transform: translateY(-2px); /* Slight lift on hover */
+    }
+
+    /* Button Active State */
+    .btn-primary:active {
+        transform: translateY(0); /* Reset on click */
+    }
+</style>
+{% endblock %}

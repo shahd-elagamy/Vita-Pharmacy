@@ -1,0 +1,16 @@
+{% extends 'main/home.html' %}
+
+{% block content %}
+<div class="order-confirmation-container" style="width: 80%; margin: 100px auto; padding: 20px; background: #ffffff; box-shadow: 0 0 10px rgba(0,0,0,0.1); border-radius: 8px; text-align: center;">
+    <h2 style="color: #7a2571; margin-bottom: 20px;">Thank You for Your Order! 😄</h2>
+    <p>Your order has been successfully placed. We will contact you soon.</p>
+    <a href="{% url 'main:home' %}" style="background-color: #7a2571; border: none; color: #ffffff; font-size: 1rem; padding: 0.75rem 1.5rem; border-radius: 5px; text-decoration: none; display: inline-block; transition: background-color 0.3s, box-shadow 0.3s; margin-top: 1rem; display: inline-block;" onmouseover="this.style.backgroundColor='#5e1a52'; this.style.boxShadow='0 4px 8px rgba(0, 0, 0, 0.2)';" onmouseout="this.style.backgroundColor='#7a2571'; this.style.boxShadow='none';">Go to Home Page</a>
+</div>
+{% endblock %}
+
+<script>
+    // Display alert message on page load
+    window.onload = function() {
+        alert('Thank you for your order! Your request has been received and is being processed.');
+    };
+</script>
